@@ -8,9 +8,12 @@ import prettierPlugin from "eslint-plugin-prettier";
 export default [
   {
     files: ["**/*.{js,mjs,cjs,ts,tsx}"],
-    ignores: ["node_modules", "dist"],
+    ignores: ["node_modules/**", "dist/**"],
     languageOptions: {
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        NodeListOf: "readonly",
+      },
       parser: tsParser,
       parserOptions: {
         ecmaVersion: 2021,
@@ -27,7 +30,12 @@ export default [
     rules: {
       "no-unused-vars": "off", // Disable base ESLint rule
       ...tseslint.configs.recommended.rules,
-      "prettier/prettier": "error",
+      "prettier/prettier": [
+        "error",
+        {
+          printWidth: 130,
+        },
+      ],
       "@typescript-eslint/no-unused-vars": ["error"], // Enable TypeScript-specific rule
     },
   },
