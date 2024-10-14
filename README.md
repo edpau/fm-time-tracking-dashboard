@@ -1,99 +1,540 @@
-# Frontend Mentor - Time tracking dashboard
+# Frontend Mentor - Time tracking dashboard solution
 
-![Design preview for the Time tracking dashboard coding challenge](./design/desktop-preview.jpg)
+This is a solution to the [Time tracking dashboard challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/time-tracking-dashboard-UIQ7167Jw). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-## Welcome! 👋
+## Table of contents
 
-Thanks for checking out this front-end coding challenge.
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
+**Note: Delete this note and update the table of contents based on what sections you keep.**
 
-**To do this challenge, you need a basic understanding of HTML, CSS and JavaScript.**
+## Overview
 
-## The challenge
+### The challenge
 
-Your challenge is to build out this dashboard and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-If you would like to practice working with JSON data, we provide a local `data.json` file for the activities. This means you'll be able to pull the data from there instead of using the content in the `.html` file.
-
-Your users should be able to:
+Users should be able to:
 
 - View the optimal layout for the site depending on their device's screen size
 - See hover states for all interactive elements on the page
 - Switch between viewing Daily, Weekly, and Monthly stats
 
-Want some support on the challenge? [Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
+### Screenshot
 
-### Expected behaviour
+![](./screenshot.jpg)
 
-- The text for the previous period's time should change based on the active timeframe. For Daily, it should read "Yesterday" e.g "Yesterday - 2hrs". For Weekly, it should read "Last Week" e.g. "Last Week - 32hrs". For monthly, it should read "Last Month" e.g. "Last Month - 19hrs".
+Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
 
-## Where to find everything
+Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design.
+Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
 
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`.
+**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
 
-If you would like the design files (we provide Sketch & Figma versions) to inspect the design in more detail, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
+### Links
 
-You will find all the required assets in the `/images` folder. The assets are already optimized.
+- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+## My process
 
-## Building your project
+### Built with
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- CSS Grid
+- Mobile-first workflow
+- [React](https://reactjs.org/) - JS library
+- [Next.js](https://nextjs.org/) - React framework
+- [Styled Components](https://styled-components.com/) - For styles
 
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
-## Deploying your project
+### What I learned
 
-As mentioned above, there are many ways to host your project for free. Our recommended hosts are:
+#### Loop over the data
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+- start with manually setting the text content for each element one by one.
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
+```typescript
+const currentWork = document.querySelector(".card_current-work") as HTMLParagraphElement;
+const previousWork = document.querySelector(".card_previous-work") as HTMLParagraphElement;
+const currentPlay = document.querySelector(".card_current-play") as HTMLParagraphElement;
+const previousPlay = document.querySelector(".card_previous-play") as HTMLParagraphElement;
 
-## Create a custom `README.md`
+if (currentWork && previousWork && currentPlay && previousPlay) {
+  currentWork.innerText = `${events[0].timeframes.daily.current} hrs`;
+  previousWork.innerText = `${events[0].timeframes.daily.previous} hrs`;
+  currentPlay.innerText = `${events[1].timeframes.daily.current} hrs`;
+  previousPlay.innerText = `${events[1].timeframes.daily.previous} hrs`;
+} else {
+  console.error("card elements are missing");
+}
+```
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+- To avoid manually setting the text content for each element one by one, I create a more dynamic and scalable solution. I use forEach to iterate over the events array and update the corresponding elements based on a consistent naming convention.
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
+```typescript
+function updateElements() {
+  events.forEach((event) => {
+    const currentElement = document.querySelector(`.card_current-${event.title.toLowerCase()}`) as HTMLParagraphElement;
+    const previousElement = document.querySelector(`.card_previous-${event.title.toLowerCase()}`) as HTMLParagraphElement;
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+    if (currentElement && previousElement) {
+      currentElement.innerText = `${event.timeframes.daily.current} hrs`;
+      previousElement.innerText = `${event.timeframes.daily.previous} hrs`;
+    } else {
+      console.error(`${event.title} element is missing`);
+    }
+  });
+}
+```
 
-## Submitting your solution
+- To avoid recreating the HTMLParagraphElement elements every time updateElements is called, I store references to these elements in as an object. This way, I can reuse the references without querying the DOM multiple times.
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
+```typescript
+const elementRefs: { [key: string]: { currentElement: HTMLParagraphElement; previousElement: HTMLParagraphElement } } = {};
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+function cacheElements() {
+  events.forEach((event) => {
+    const title = event.title.toLowerCase();
+    elementRefs[title] = {
+      currentElement: document.querySelector(`.card_current-${title}`) as HTMLParagraphElement,
+      previousElement: document.querySelector(`.card_previous-${title}`) as HTMLParagraphElement,
+    };
+  });
+}
 
-## Sharing your solution
+function updateElements(currentPeriod: Period) {
+  events.forEach((event) => {
+    const element = elementRefs[event.title.toLowerCase()];
+    if (element && element.currentElement && element.previousElement) {
+      element.currentElement.innerText = `${event.timeframes[currentPeriod].current} hrs`;
+      element.previousElement.innerText = `${event.timeframes[currentPeriod].previous} hrs`;
+    } else {
+      console.error(`${event.title} element is missing`);
+    }
+  });
+}
+```
 
-There are multiple places you can share your solution:
+#### Adding fallback or validation to handle invalid period selection
 
-1. Share your solution page in the **#finished-projects** channel of the [community](https://www.frontendmentor.io/community). 
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
+1. Fallback Approach
 
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback.
+- Sets a default value ("weekly") if an invalid period is selected, allowing the dashboard to continue functioning without errors.
 
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
+```typescript
+function handlePeriodChange(e: Event) {
+  const target = e.target;
 
-## Got feedback for us?
+  if (!(target instanceof HTMLElement)) {
+    console.error("Cannot find button");
+    return;
+  }
 
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
+  if (!(target instanceof HTMLButtonElement)) {
+    return;
+  }
 
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
+  const clickPeriod = target.innerText.toLowerCase() as Period;
 
-**Have fun building!** 🚀
+  // Fallback: Set to 'weekly' if the selected period is invalid
+  const validPeriods: Period[] = ["daily", "weekly", "monthly"];
+  if (!validPeriods.includes(clickPeriod)) {
+    console.warn(`Invalid period selected: ${clickPeriod}. Falling back to 'weekly'.`);
+    currentPeriod = "weekly"; // Fallback to 'weekly'
+  } else {
+    currentPeriod = clickPeriod; // Set to the valid period
+  }
+
+  updateElements(currentPeriod);
+}
+```
+
+2. Validation Approach
+
+- For validation, check if the selected period is valid before proceeding. If it’s invalid, display an error message without changing the current period:
+
+```typescript
+function handlePeriodChange(e: Event) {
+  const target = e.target;
+
+  if (!(target instanceof HTMLElement)) {
+    console.error("Cannot find button");
+    return;
+  }
+
+  if (!(target instanceof HTMLButtonElement)) {
+    return;
+  }
+
+  const clickPeriod = target.innerText.toLowerCase() as Period;
+
+  // Validation: Check if the selected period is valid
+  const validPeriods: Period[] = ["daily", "weekly", "monthly"];
+  if (validPeriods.includes(clickPeriod)) {
+    currentPeriod = clickPeriod; // Set to the valid period
+    updateElements(currentPeriod);
+  } else {
+    console.error(`Invalid period selected: ${clickPeriod}. Please select a valid period.`);
+  }
+}
+```
+
+- further improve, use a Set for validation, which is more efficient
+
+```typescript
+const validPeriods: Set<Period> = new Set(["daily", "weekly", "monthly"]);
+
+if (!validPeriods.has(selectedPeriod)) {
+  console.error(`The innerText of ${target.innerText} button does not match ValidPeriods`);
+  window.alert("Something is wrong, please try again later.");
+  return;
+}
+```
+
+#### Handle the failure case in the init() function more explicitly
+
+1. inform the user when data fetching fails,
+2. disable UI elements to prevent interactions,
+3. or provide fallback content.
+
+```typescript
+async function init() {
+  // ... (other initialization code)
+  // ... selects control and button elements, checks their existence, and adds a click event
+
+  events = await getData();
+
+  if (events.length === 0) {
+    disableUI(buttons);
+    window.alert("Cannot get Data, please try again later.");
+    return;
+  }
+
+  cacheElements();
+  updateElements(currentPeriod);
+}
+
+function disableUI(buttons: NodeListOf<HTMLButtonElement>) {
+  buttons.forEach((button) => {
+    console.log("click");
+    button.disabled = true;
+  });
+}
+```
+
+#### The periodLabels logic in updateElements() could be simplified by storing the period messages in an object for lookup
+
+- original code
+
+```typescript
+function updateElements(currentPeriod: Period) {
+  let periodLabels = {};
+  events.forEach((event) => {
+    const element = elementRefs[event.title.toLowerCase()];
+
+    if (currentPeriod === "daily") {
+      periodLabels = "Yesterday - ";
+    } else if (currentPeriod === "weekly") {
+      periodLabels = "Last Week - ";
+    } else {
+      periodLabels = "Last Month - ";
+    }
+
+    if (element && element.currentElement && element.previousElement) {
+      element.currentElement.innerText = `${event.timeframes[currentPeriod].current}hrs`;
+      element.previousElement.innerText = `${periodLabels} ${event.timeframes[currentPeriod].previous}hrs`;
+    } else {
+      console.error(`${event.title} element is missing`);
+    }
+  });
+}
+```
+
+- refactored with an object for look up
+
+```typescript
+function updateElements(currentPeriod: Period) {
+  let periodLabels: { [key in Period]: string } = {
+    daily: "Yesterday - ",
+    weekly: "Last Week - ",
+    monthly: "Last Month - ",
+  };
+  events.forEach((event) => {
+    const element = elementRefs[event.title.toLowerCase()];
+    const { current, previous } = event.timeframes[currentPeriod];
+
+    if (element) {
+      element.currentElement.innerText = `${current}hrs`;
+      element.previousElement.innerText = `${periodLabels[currentPeriod]}${previous}hrs`;
+    } else {
+      console.error(`${event.title} element is missing`);
+    }
+  });
+}
+```
+
+- further improve Readability with Constants:
+
+  - define periodLabels outside the function since it's static and doesn't change. This will also avoid recreating the same object on every call to updateElements()
+
+  ```typescript
+  let PERIOD_LABELS: { [key in Period]: string } = {
+    daily: "Yesterday - ",
+    weekly: "Last Week - ",
+    monthly: "Last Month - ",
+  };
+
+  function updateElements(currentPeriod: Period) {
+    events.forEach((event) => {
+      const element = elementRefs[event.title.toLowerCase()];
+      const { current, previous } = event.timeframes[currentPeriod];
+
+      if (element) {
+        element.currentElement.innerText = `${current}hrs`;
+        element.previousElement.innerText = `${PERIOD_LABELS[currentPeriod]}${previous}hrs`;
+      } else {
+        console.error(`${event.title} element is missing`);
+      }
+    });
+  }
+  ```
+
+#### improved implementation using event delegation
+
+-  Instead of adding individual event listeners to each button, I attach a single event listener to the container and let the event "bubble up" from the button click to the container.
+- Problem in this approach is I am checking the target instanceof HTMLElement and target instanceof HTMLButtonElement twice. 
+
+```typescript
+async function init() {
+  const buttonsControl = document.querySelector<HTMLElement>(".profile__control");
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".profile__button");
+
+  if (!buttonsControl) {
+    console.error("Buttons Control is missing");
+    window.alert("Please try again later.");
+    return;
+  }
+
+  if (!buttons.length) {
+    console.error("Buttons element is missing");
+    window.alert("Please try again later.");
+    return;
+  }
+
+  if (buttonsControl && buttons.length) {
+    buttonsControl.addEventListener("click", (e) => {
+      handlePeriodChange(e);
+      handleButtonColor(e, buttons);
+    });
+  }
+  // ...other init code
+}
+
+function handlePeriodChange(e: Event) {
+  const target = e.target;
+
+  if (!(target instanceof HTMLElement)) {
+    console.error("Cannot find button");
+    return;
+  }
+
+  if (!(target instanceof HTMLButtonElement)) {
+    return;
+  }
+
+  const selectedPeriod = target.innerText.toLocaleLowerCase() as Period;
+
+  // Validation: Check if the selected period is valid
+
+  const validPeriods: Set<Period> = new Set(["daily", "weekly", "monthly"]);
+
+  if (!validPeriods.has(selectedPeriod)) {
+    console.error(`The innerText of ${target.innerText} button does not match ValidPeriods`);
+    window.alert("Something is wrong, please try again later.");
+    return;
+  }
+
+  if (selectedPeriod === currentPeriod) {
+    return;
+  }
+
+  updateElements(selectedPeriod);
+  currentPeriod = selectedPeriod;
+}
+
+function handleButtonColor(e: Event, buttons: NodeListOf<HTMLButtonElement>) {
+  const target = e.target;
+
+  if (!(target instanceof HTMLElement)) {
+    console.error("Cannot find button");
+    return;
+  }
+
+  if (!(target instanceof HTMLButtonElement)) {
+    return;
+  }
+
+  buttons.forEach((button) => {
+    button.classList.remove("profile__button-selected");
+  });
+
+  target.classList.add("profile__button-selected");
+}
+```
+
+- Improved implementation using event delegation
+  - `matches()`- `if (clickedElement.matches(".profile__button"))` checks if the clicked element is one of the buttons.
+
+```typescript
+async function init() {
+  const buttonsControl = document.querySelector<HTMLElement>(".profile__control");
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".profile__button");
+
+  if (!buttonsControl) {
+    console.error("Buttons Control is missing");
+    window.alert("Please try again later.");
+    return;
+  }
+
+  if (!buttons.length) {
+    console.error("Buttons element is missing");
+    window.alert("Please try again later.");
+    return;
+  }
+
+  if (buttonsControl && buttons.length) {
+    buttonsControl.addEventListener("click", (e) => {
+      const clickedElement = e.target as HTMLElement;
+
+      if (clickedElement.matches(".profile__button")) {
+        const button = clickedElement as HTMLButtonElement;
+        handlePeriodChange(button);
+        handleButtonColor(button, buttons);
+      } else {
+        return;
+      }
+    });
+  }
+
+  // ...other init code
+}
+
+function handlePeriodChange(button: HTMLElement) {
+  const selectedPeriod = button.innerText.toLocaleLowerCase() as Period;
+
+  // Validation: Check if the selected period is valid
+  const validPeriods: Set<Period> = new Set(["daily", "weekly", "monthly"]);
+
+  if (!validPeriods.has(selectedPeriod)) {
+    console.error(`The innerText of ${button.innerText} button does not match ValidPeriods`);
+    window.alert("Something is wrong, please try again later.");
+    return;
+  }
+
+  if (selectedPeriod === currentPeriod) {
+    return;
+  }
+
+  updateElements(selectedPeriod);
+  currentPeriod = selectedPeriod;
+}
+
+function handleButtonColor(button: HTMLButtonElement, buttons: NodeListOf<HTMLButtonElement>) {
+  buttons.forEach((btn) => {
+    btn.classList.remove("profile__button-selected");
+  });
+
+  button.classList.add("profile__button-selected");
+}
+
+```
+
+#### TS mapped type `periodLabels: { [key in Period]: string }`
+
+```typescript
+type Period = "daily" | "weekly" | "monthly";
+
+let periodLabels: { [key in Period]: string } = {
+  daily: "Yesterday - ",
+  weekly: "Last Week - ",
+  monthly: "Last Month - ",
+};
+```
+
+#### ESLint- `'NodeListOf' is not defined eslint (no-undef)
+
+- When I use `buttons: NodeListOf<HTMLElement>`, I got error from ESLint, `'NodeListOf' is not defined eslint (no-undef)`.
+- The error 'NodeListOf' is not defined is likely due to TypeScript not recognizing that NodeListOf comes from the DOM library.
+- So in tsconfig.json, I added `"lib": ["dom", "es6"]`, to ensure that the dom library is included in my tsconfig.json.
+- I tried adding below in eslint.config.mjs, I explicitly telling ESLint that I am working in a browser environment (which includes the NodeListOf global type). But env option is not supported in the flat configuration format I am using in ESLint 9.x.
+
+```JSON
+  env: {
+    node: true,
+    commonjs: true,
+    browser: true,
+    es6: true,
+  },
+```
+
+- then I added `NodeListOf: "readonly"` in the globals section informs ESLint that NodeListOf is a global object in the environment and is treated as "readonly."
+
+```JSON
+   languageOptions: {
+      globals: {
+        ...globals.browser,
+        NodeListOf: "readonly",
+      },
+   }
+```
+
+- Essentially, this tells ESLint:
+
+  - "NodeListOf is available globally (in the browser), and it should not be modified or reassigned."
+  - This prevents ESLint from throwing errors like 'NodeListOf' is not defined while also ensuring that NodeListOf is only used but not reassigned within your code.
+
+- breakdown of what it does:
+  - NodeListOf: This is a TypeScript type that represents a collection of DOM elements, typically returned from methods like document.querySelectorAll. For example, NodeListOf<HTMLElement> refers to a list of HTML elements that can be iterated over like an array.
+  - "readonly": By specifying "readonly", you tell ESLint that NodeListOf is a global variable that should not be reassigned. ESLint will enforce this, ensuring that you don’t accidentally overwrite the NodeListOf type or variable in your code.
+
+### Continued development
+
+Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+
+**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+
+### Useful resources
+
+- [DocumentFragment](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) - DocumentFragment is a lightweight container for DOM nodes. It allows you to build a subtree of the DOM without causing immediate reflows and repaints.
+- [Batch DOM Updates With Fragment](https://www.freecodecamp.org/news/dom-manipulation-best-practices/#:~:text=Batch%20DOM%20Updates%20With%20Fragment,-Frequent%20updates%20to&text=createDocumentFragment%20property.,makes%20your%20code%20more%20effecient.&text=This%20code%20updates%20with%20each%20iteration%20of%20the%20loop.) - Batch DOM updates with Fragment allows you to group multiple updates before inserting them into the document. This reduces reflows and makes your code more effecient.
+- [Mapped Types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html) - TS doc on mapped type
+- [What are Mapped Types in TypeScript?](https://refine.dev/blog/typescript-mapped-types/#what-are-mapped-types-in-typescript)
+
+**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+
+## Author
+
+- Website - [Add your name here](https://www.your-site.com)
+- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
+- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+
+**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
+
+## Acknowledgments
+
+This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
+
+**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
