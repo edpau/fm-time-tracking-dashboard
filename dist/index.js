@@ -37,20 +37,12 @@ function getData() {
         }
     });
 }
-function handlePeriodChange(e) {
-    const target = e.target;
-    if (!(target instanceof HTMLElement)) {
-        console.error("Cannot find button");
-        return;
-    }
-    if (!(target instanceof HTMLButtonElement)) {
-        return;
-    }
-    const selectedPeriod = target.innerText.toLocaleLowerCase();
+function handlePeriodChange(button) {
+    const selectedPeriod = button.innerText.toLocaleLowerCase();
     // Validation: Check if the selected period is valid
     const validPeriods = new Set(["daily", "weekly", "monthly"]);
     if (!validPeriods.has(selectedPeriod)) {
-        console.error(`The innerText of ${target.innerText} button does not match ValidPeriods`);
+        console.error(`The innerText of ${button.innerText} button does not match ValidPeriods`);
         window.alert("Something is wrong, please try again later.");
         return;
     }
@@ -60,19 +52,11 @@ function handlePeriodChange(e) {
     updateElements(selectedPeriod);
     currentPeriod = selectedPeriod;
 }
-function handleButtonColor(e, buttons) {
-    const target = e.target;
-    if (!(target instanceof HTMLElement)) {
-        console.error("Cannot find button");
-        return;
-    }
-    if (!(target instanceof HTMLButtonElement)) {
-        return;
-    }
-    buttons.forEach((button) => {
-        button.classList.remove("profile__button-selected");
+function handleButtonColor(button, buttons) {
+    buttons.forEach((btn) => {
+        btn.classList.remove("profile__button-selected");
     });
-    target.classList.add("profile__button-selected");
+    button.classList.add("profile__button-selected");
 }
 function cacheElements() {
     events.forEach((event) => {
@@ -107,14 +91,25 @@ function init() {
         const buttons = document.querySelectorAll(".profile__button");
         if (!buttonsControl) {
             console.error("Buttons Control is missing");
+            window.alert("Please try again later.");
+            return;
         }
         if (!buttons.length) {
             console.error("Buttons element is missing");
+            window.alert("Please try again later.");
+            return;
         }
         if (buttonsControl && buttons.length) {
             buttonsControl.addEventListener("click", (e) => {
-                handlePeriodChange(e);
-                handleButtonColor(e, buttons);
+                const clickedElement = e.target;
+                if (clickedElement.matches(".profile__button")) {
+                    const button = clickedElement;
+                    handlePeriodChange(button);
+                    handleButtonColor(button, buttons);
+                }
+                else {
+                    return;
+                }
             });
         }
         events = yield getData();

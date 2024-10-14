@@ -50,26 +50,14 @@ async function getData(): Promise<Event[]> {
   }
 }
 
-function handlePeriodChange(e: Event) {
-  const target = e.target;
-
-  if (!(target instanceof HTMLElement)) {
-    console.error("Cannot find button");
-    return;
-  }
-
-  if (!(target instanceof HTMLButtonElement)) {
-    return;
-  }
-
-  const selectedPeriod = target.innerText.toLocaleLowerCase() as Period;
+function handlePeriodChange(button: HTMLElement) {
+  const selectedPeriod = button.innerText.toLocaleLowerCase() as Period;
 
   // Validation: Check if the selected period is valid
-
   const validPeriods: Set<Period> = new Set(["daily", "weekly", "monthly"]);
 
   if (!validPeriods.has(selectedPeriod)) {
-    console.error(`The innerText of ${target.innerText} button does not match ValidPeriods`);
+    console.error(`The innerText of ${button.innerText} button does not match ValidPeriods`);
     window.alert("Something is wrong, please try again later.");
     return;
   }
@@ -82,23 +70,12 @@ function handlePeriodChange(e: Event) {
   currentPeriod = selectedPeriod;
 }
 
-function handleButtonColor(e: Event, buttons: NodeListOf<HTMLButtonElement>) {
-  const target = e.target;
-
-  if (!(target instanceof HTMLElement)) {
-    console.error("Cannot find button");
-    return;
-  }
-
-  if (!(target instanceof HTMLButtonElement)) {
-    return;
-  }
-
-  buttons.forEach((button) => {
-    button.classList.remove("profile__button-selected");
+function handleButtonColor(button: HTMLButtonElement, buttons: NodeListOf<HTMLButtonElement>) {
+  buttons.forEach((btn) => {
+    btn.classList.remove("profile__button-selected");
   });
 
-  target.classList.add("profile__button-selected");
+  button.classList.add("profile__button-selected");
 }
 
 function cacheElements() {
@@ -149,8 +126,15 @@ async function init() {
 
   if (buttonsControl && buttons.length) {
     buttonsControl.addEventListener("click", (e) => {
-      handlePeriodChange(e);
-      handleButtonColor(e, buttons);
+      const clickedElement = e.target as HTMLElement;
+
+      if (clickedElement.matches(".profile__button")) {
+        const button = clickedElement as HTMLButtonElement;
+        handlePeriodChange(button);
+        handleButtonColor(button, buttons);
+      } else {
+        return;
+      }
     });
   }
 
