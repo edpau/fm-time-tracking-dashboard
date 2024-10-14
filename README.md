@@ -468,7 +468,7 @@ let periodLabels: { [key in Period]: string } = {
 - So in tsconfig.json, I added `"lib": ["dom", "es6"]`, to ensure that the dom library is included in my tsconfig.json.
 - I tried adding below in eslint.config.mjs, I explicitly telling ESLint that I am working in a browser environment (which includes the NodeListOf global type). But env option is not supported in the flat configuration format I am using in ESLint 9.x.
 
-```JSON
+```javascript
   env: {
     node: true,
     commonjs: true,
@@ -479,7 +479,7 @@ let periodLabels: { [key in Period]: string } = {
 
 - then I added `NodeListOf: "readonly"` in the globals section informs ESLint that NodeListOf is a global object in the environment and is treated as "readonly."
 
-```JSON
+```javascript
    languageOptions: {
       globals: {
         ...globals.browser,
