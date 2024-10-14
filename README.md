@@ -505,6 +505,7 @@ let periodLabels: { [key in Period]: string } = {
 - [Batch DOM Updates With Fragment](https://www.freecodecamp.org/news/dom-manipulation-best-practices/#:~:text=Batch%20DOM%20Updates%20With%20Fragment,-Frequent%20updates%20to&text=createDocumentFragment%20property.,makes%20your%20code%20more%20effecient.&text=This%20code%20updates%20with%20each%20iteration%20of%20the%20loop.) - Batch DOM updates with Fragment allows you to group multiple updates before inserting them into the document. This reduces reflows and makes your code more effecient.
 - [Mapped Types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html) - TS doc on mapped type
 - [What are Mapped Types in TypeScript?](https://refine.dev/blog/typescript-mapped-types/#what-are-mapped-types-in-typescript)
+- [Buttons must have discernible text](https://dequeuniversity.com/rules/axe/4.1/button-name)
 
 
 ## Author
