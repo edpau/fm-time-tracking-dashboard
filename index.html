@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <title>Frontend Mentor | Time tracking dashboard</title>
+    <script defer src="./dist/index.js"></script>
+  </head>
+  <body>
+    <main>
+      <section class="dashboard">
+        <h1 class="sr-only">Time Tracking Dashboard</h1>
+        <article class="profile">
+          <div class="profile__content">
+            <img class="profile__img" src="./images/image-jeremy.png" alt="Jeremy profile image" width="234" height="234" />
+            <h2 class="profile__title">Report for</h2>
+            <p class="profile__name">Jeremy Robson</p>
+          </div>
+          <ul class="profile__control">
+            <li class="profile__control-item"><button class="profile__button">Daily</button></li>
+            <li class="profile__control-item"><button class="profile__button profile__button-selected">Weekly</button></li>
+            <li class="profile__control-item"><button class="profile__button">Monthly</button></li>
+          </ul>
+        </article>
+        <article class="card card-work">
+          <div class="card__content">
+            <h2 class="card__title">Work</h2>
+            <button class="card__button">
+            <img src="./images/icon-ellipsis.svg" alt="">
+            </button>
+            <p class="card__current card__current-work">-</p>
+            <p class="card__previous card__previous-work">-</p>
+          </div>
+        </article>
+        <article class="card card-play">
+          <div class="card__content">
+            <h2 class="card__title">Play</h2>
+            <button class="card__button">
+              <img src="./images/icon-ellipsis.svg" alt="">
+            </button>
+            <p class="card__current card__current-play">-</p>
+            <p class="card__previous card__previous-play">-</p>
+          </div>
+        </article>
+        <article class="card card-study">
+          <div class="card__content">
+            <h2 class="card__title">Study</h2>
+            <button class="card__button">
+              <img src="./images/icon-ellipsis.svg" alt="">
+            </button>
+            <p class="card__current card__current-study">-</p>
+            <p class="card__previous card__previous-study">-</p>
+          </div>
+        </article>
+        <article class="card card-exercise">
+          <div class="card__content">
+            <h2 class="card__title">Exercise</h2>
+            <button class="card__button">
+              <img src="./images/icon-ellipsis.svg" alt="">
+            </button>
+            <p class="card__current card__current-exercise">-</p>
+            <p class="card__previous card__previous-exercise">-</p>
+          </div>
+        </article>
+        <article class="card card-social">
+          <div class="card__content">
+            <h2 class="card__title">Social</h2>
+            <button class="card__button">
+              <img src="./images/icon-ellipsis.svg" alt="">
+            </button>
+            <p class="card__current card__current-social">-</p>
+            <p class="card__previous card__previous-social">-</p>
+          </div>
+        </article>
+        <article class="card card-self-care">
+          <div class="card__content">
+            <h2 class="card__title">Self Care</h2>
+            <button class="card__button">
+              <img src="./images/icon-ellipsis.svg" alt="">
+            </button>
+            <p class="card__current card__current-self-care">-</p>
+            <p class="card__previous card__previous-self-care">-</p>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
