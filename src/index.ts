@@ -32,7 +32,7 @@ let PERIOD_LABELS: { [key in Period]: string } = {
 
 async function getData(): Promise<Event[]> {
   try {
-    const response = await fetch("/data.json");
+    const response = await fetch("data.json");
 
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);

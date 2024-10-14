@@ -19,7 +19,7 @@ let PERIOD_LABELS = {
 function getData() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const response = yield fetch("/data.json");
+            const response = yield fetch("data.json");
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
             }

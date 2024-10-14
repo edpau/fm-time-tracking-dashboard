@@ -31,8 +31,8 @@ Users should be able to:
 
 ### Links
 
-- [Solution URL](https://github.com/edpau/fm_four-card-feature-section)
-- [Live Site URL](https://edpau.github.io/fm_four-card-feature-section/)
+- [Solution URL](https://github.com/edpau/fm-time-tracking-dashboard)
+- [Live Site URL](https://edpau.github.io/fm-time-tracking-dashboard/)
 
 ## My process
 
